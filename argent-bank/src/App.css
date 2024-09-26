@@ -20,3 +20,7 @@ body {
 .bg-dark {
   background-color: #12002b;
 }
+
+.error {
+  color: red;
+}
