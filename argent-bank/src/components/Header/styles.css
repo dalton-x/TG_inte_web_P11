@@ -14,12 +14,17 @@
   color: #42b983;
 }
 
-.main-nav-item {
+.not-connected {
   text-decoration: none;
   margin-right: 0.5rem;
 }
 
-.main-nav-item:hover {
+.connected {
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+.not-connected:hover, .connected:hover {
   text-decoration: underline;
 }
 

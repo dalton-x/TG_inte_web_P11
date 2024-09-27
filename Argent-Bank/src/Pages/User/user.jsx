@@ -1,12 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import "./styles.css"
 import { useEffect, useState } from "react"
 import Modal from "../../components/Modal/modal.jsx"
+import { getUser, updateUsername } from '@/redux/actions/user.actions.jsx'
 
 function User() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [userData, setUserData] = useState()
   const [username, setUsername] = useState('')
@@ -36,7 +39,8 @@ function User() {
     try {
       const response = await axios.put(import.meta.env.VITE_API_URL + '/api/v1/user/profile', {userName : username}, config)
       setUserData(response.data.body)
-      setUsername(response.data.body.userName)
+      setUsername(response.data.body.userName)      
+      dispatch(updateUsername(response.data.body))      
     } catch (error) {
       console.error('Error fetching user data:', error)
       navigate('/sign-in')
@@ -50,6 +54,7 @@ function User() {
         const response = await axios.post(import.meta.env.VITE_API_URL + '/api/v1/user/profile', {}, config)
         setUserData(response.data.body)
         setUsername(response.data.body.userName)
+        dispatch(getUser(response.data.body))
       } catch (error) {
         console.error('Error fetching user data:', error)
         navigate('/sign-in')

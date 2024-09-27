@@ -1,48 +1,55 @@
-.main.bg-dark {
-  padding-top: 3rem;
-  min-height: 80vh;
-}
-
-.sign-in-button {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
-}
-
 .sign-in-content {
-  box-sizing: border-box;
   background-color: white;
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
   margin: 0 auto;
   padding: 2rem;
+  width: 18.75rem;
+}
+
+i {
+  font-size: 1.1rem;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+  margin-left: 0.25rem;
+}
+
+input {
+  font-size: 1.2rem;
+  padding: 0.3125rem;
 }
 
 .input-remember {
   display: flex;
 }
 
-.input-remember label {
-  margin-left: 0.25rem;
-}
-
-.input-wrapper {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
-.input-wrapper label {
+.sign-in-button {
+  background-color: #00bc77;
+  border-color: #00bc77;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 1.1rem;
   font-weight: bold;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  width: 100%;
 }
 
-.input-wrapper input {
-  padding: 5px;
-  font-size: 1.2rem;
-}
+.error-message {
+  color: red;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 25px;
+}/*# sourceMappingURL=Form.css.map */

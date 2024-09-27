@@ -1,8 +1,24 @@
 import { Link } from "react-router-dom"
 import "./styles.css"
 import logo from './../../assets/argentBankLogo.png';
+import { Fragment } from "react";
+
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '@/redux/actions/auth.actions';
+
 
 function Header() {
+
+  const dispatch = useDispatch();
+
+  const username = useSelector((state) => state.user.data.userName)
+  const isConnected = useSelector((state) => state.auth.isConnected);
+
+  const signOutHandler = () => {
+    dispatch(logout());
+    sessionStorage.clear();
+    localStorage.clear();
+  }
 
   return (
     <nav className="main-nav">
@@ -15,10 +31,23 @@ function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
         <div>
-          <Link className="main-nav-item" to="/sign-in">
+        {!isConnected ? (
+          <Link className="not-connected" to="/sign-in">
             <i className="fa fa-user-circle"></i>
             Sign In
           </Link>
+        ) : (
+          <Fragment>
+            <Link className='connected' to='/profile'>
+              <i className="fa fa-user-circle"></i>
+              {username}
+            </Link>
+            <Link className='connected' to='/'  onClick={signOutHandler}>
+              <i className="fa fa-sign-out"></i>
+              Sign out
+            </Link>
+          </Fragment>
+        )}
         </div>
     </nav>
   )
