@@ -1,4 +1,4 @@
-import { GET_USER, UPDATE_USERNAME } from "@/redux/actions/type.actions";
+import { GET_USER, UPDATE_USERNAME, DESTROY_USER } from "@/redux/actions/type.actions";
 
 /* Actions d'authentification */
 
@@ -8,9 +8,15 @@ export const getUser = (data) => {
         payload: data, // donnees de l'utilisateur
     }
 }
-export const updateUsername = (data) => {
+export const updateUsername = (newUserName) => {
     return {
         type: UPDATE_USERNAME,
-        payload: data, // nouveau username de l utilisateur
+        payload: newUserName, // nouveau username de l'utilisateur
+    }
+}
+export const destroyUser = () => {
+    return {
+        type: DESTROY_USER,
+        payload: null, // nouveau username de l'utilisateur
     }
 }
