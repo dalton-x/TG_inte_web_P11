@@ -38,7 +38,7 @@ function Header() {
           </Link>
         ) : (
           <Fragment>
-            <Link className='connected' to='/profile'>
+            <Link className='connected' to='/user'>
               <i className="fa fa-user-circle"></i>
               {username}
             </Link>

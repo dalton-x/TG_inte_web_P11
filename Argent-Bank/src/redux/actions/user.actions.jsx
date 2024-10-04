@@ -8,9 +8,9 @@ export const getUser = (data) => {
         payload: data, // donnees de l'utilisateur
     }
 }
-export const updateUsername = (data) => {
+export const updateUsername = (newUserName) => {
     return {
         type: UPDATE_USERNAME,
-        payload: data, // nouveau username de l utilisateur
+        payload: newUserName, // nouveau username de l'utilisateur
     }
 }
