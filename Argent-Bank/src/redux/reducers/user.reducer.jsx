@@ -1,10 +1,10 @@
-import { GET_USER, UPDATE_USERNAME } from "@/redux/actions/type.actions";
+import { GET_USER, UPDATE_USERNAME, DESTROY_USER } from "@/redux/actions/type.actions";
 
 /* État initial de l'authentification */
 const initialState = {
   status: "VOID",
   data: {
-    username: ''
+    username: null
   }
 }
 
@@ -26,6 +26,9 @@ export const userReducer = (state = initialState, action) => {
           userName: action.payload
         }
       }
+
+    case DESTROY_USER:
+      return initialState
 
     default:
       return state;

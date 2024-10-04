@@ -5,7 +5,7 @@ import { Fragment } from "react";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '@/redux/actions/auth.actions';
-
+import { destroyUser } from '@/redux/actions/user.actions';
 
 function Header() {
 
@@ -16,6 +16,7 @@ function Header() {
 
   const signOutHandler = () => {
     dispatch(logout());
+    dispatch(destroyUser());
     sessionStorage.clear();
     localStorage.clear();
   }

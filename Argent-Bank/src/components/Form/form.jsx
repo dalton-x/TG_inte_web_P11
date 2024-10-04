@@ -13,7 +13,7 @@ const LoginForm = () => {
   const [rememberMe, setRememberMe] = useState('off')
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()  
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
@@ -44,7 +44,6 @@ const LoginForm = () => {
         } else {
           sessionStorage.setItem('token', token)
         }
-        
         // Dispatch de l'action de connexion réussie
         dispatch(loginSuccess(token))
         navigate('/user', { state: { token } })

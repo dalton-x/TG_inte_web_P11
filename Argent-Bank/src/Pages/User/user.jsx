@@ -14,12 +14,13 @@ function User() {
   const dispatch = useDispatch()
 
   const [userData, setUserData] = useState()
+  const [display, setDisplay] = useState(false)
 
   // Gestion affichage du formulaire de mise à jour du userName
-  const [display, setDisplay] = useState(false);
-  const isConnected = useSelector((state) => state.auth.isConnected)  
-
-  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  const isConnected = useSelector((state) => state.auth.isConnected)
+  
+  // controle du token
+  const token =  localStorage.getItem('token') || sessionStorage.getItem('token');
   const config = {
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -34,13 +35,17 @@ function User() {
         dispatch(getUser(response.data.body))
       } catch (error) {
         console.error('Error fetching user data:', error)
-        navigate('/sign-in')
       }
     }
 
     fetchUserData()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
+
+  // Gestion du hide/show depuis le btn cancel
+  const handleSetDisplay = () => {
+    setDisplay(!display)
+  };
 
   // Test si l utilisateur est toujours connecté
   if (!isConnected) {
@@ -56,11 +61,11 @@ function User() {
   return (
     <main className="main bg-dark">
       {display ? (
-      <Profile display={display}/>
+        <Profile setDisplay={handleSetDisplay} />
       ) : null}
       <div className="header">
         <h1>Welcome back<br />{userData?.firstName} {userData?.lastName}</h1>
-        <button className="edit-button" onClick={() => setDisplay(!display)}>Edit Name</button>
+        <button className="edit-button" onClick={handleSetDisplay}>Edit Name</button>
       </div>
         {transactions.map((transaction) => (
           <Transaction

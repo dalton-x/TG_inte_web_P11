@@ -1,31 +1,51 @@
-
-import PropTypes from 'prop-types'
+/* eslint-disable react/prop-types */
+import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux"
 import { updateUsername } from '@/redux/actions/user.actions'
 import { useState } from 'react'
-// import axios from 'axios'
-
-
 import "./styles.css"
 
-const Profile = ({display}) => {
+const Profile = ({setDisplay}) => {
 
   const dispatch = useDispatch()
   const userData = useSelector((state) => state.user.data)
+  const token = useSelector((state) => state.auth.token) || localStorage.getItem('token') 
+
   const [newUserName, setNewUserName] = useState(userData.userName)
+  const [error, setError] = useState('')
+
+  const handleSetDisplay = () => {
+    setDisplay(false)
+  };
 
   const handleSetUserName = (value) => {
     setNewUserName(value)
   };  
 
   const handleSubmitUsername = async () => {
-    dispatch(updateUsername(newUserName))
-    // TODO: Update newUsername en BDD
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    }
+    try {
+      const response = await axios.put(import.meta.env.VITE_API_URL + '/api/v1/user/profile', {"userName": newUserName}, config)      
+      if (response.status == 200) {
+        setDisplay(false)
+        dispatch(updateUsername(newUserName))
+      } else {
+        setError(response.data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error)
+      setError(error.message);
+    }
   };
 
   return (
     <section>
       <h2>Edit user info</h2>
+      {error && <div className="error">{error}</div>}
       <div className="edit-input">
         <label htmlFor="username">User name:</label>
         <input
@@ -55,16 +75,10 @@ const Profile = ({display}) => {
       </div>
       <div className="buttons">
         <button className="edit-username-button" onClick={handleSubmitUsername}>Save</button>
-        {/* <button className="edit-username-button" onClick={setDisplay(!display)}>Cancel</button> */}
-        <button className="edit-username-button">Cancel</button>
+        <button className="edit-username-button" onClick={handleSetDisplay}>Cancel</button>
       </div>
     </section>
   );
 };
-
-Profile.prototype = {
-  display: PropTypes.bool.isRequired,
-}
-
 
 export default Profile
