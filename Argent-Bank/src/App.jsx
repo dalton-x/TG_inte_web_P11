@@ -6,7 +6,7 @@ import Home from '@/pages/Home/home.jsx';
 import SignIn from '@/pages/Sign-in/sign-in.jsx';
 import User from '@/pages/User/user.jsx';
 
-import '@/app.css'
+import '../App.css'
 export default function App () {
 
   return (
