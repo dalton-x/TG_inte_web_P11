@@ -47,7 +47,7 @@ function User() {
     setDisplay(!display)
   };
 
-  // Test si l utilisateur est toujours connecté
+  // Test si l'utilisateur est toujours connecté
   if (!isConnected) {
     navigate('/sign-in')
   }

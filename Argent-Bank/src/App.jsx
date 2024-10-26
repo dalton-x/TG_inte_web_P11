@@ -5,12 +5,14 @@ import Footer from '@/components/Footer/footer.jsx';
 import Home from '@/pages/Home/home.jsx';
 import SignIn from '@/pages/Sign-in/sign-in.jsx';
 import User from '@/pages/User/user.jsx';
+import InactivityDetector from './components/InactivityDetector/InactivityDetector';
 
 import '../App.css'
 export default function App () {
 
   return (
     <Fragment>
+      <InactivityDetector/> {/* Gestion de l'inactivité de l 'utilisateur */}
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
