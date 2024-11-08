@@ -1,5 +1,5 @@
 import { Routes, Route  } from 'react-router-dom';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Header from '@/components/Header/header.jsx';
 import Footer from '@/components/Footer/footer.jsx';
 import Home from '@/pages/Home/home.jsx';
@@ -14,22 +14,24 @@ import { reconnectUser } from './redux/actions/user.actions';
 export default function App () {
 
   const activation = import.meta.env.VITE_ACTIVATION_INACTIVITY;
+  const [hasToken, setHasToken] = useState(sessionStorage.getItem('token') !== null)
   
   const dispatch = useDispatch()
   
-  useEffect(() => {    
+  useEffect(() => {
     if (sessionStorage.getItem('state') !== null) {
       if (JSON.parse(sessionStorage.getItem('state')).auth.status !== 'VOID') {
         const info = JSON.parse(sessionStorage.getItem('state'))
         dispatch(reconnectAuth(info.auth))
         dispatch(reconnectUser(info.user))
+        setHasToken(true)
       }
     }
-  })
+  }, [dispatch])
 
   return (
     <Fragment>
-      {activation === 'actif' 
+      {activation === 'actif' && hasToken
         ?
           <InactivityDetector/>
         :

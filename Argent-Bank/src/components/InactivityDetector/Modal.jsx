@@ -2,7 +2,7 @@
 // Modal.js
 import './modal.style.css';
 
-const Modal = ({ isOpen, onConfirm }) => {
+const Modal = ({ isOpen, onConfirm, onCancel }) => {
   if (!isOpen) return null;
 
   return (
@@ -11,6 +11,7 @@ const Modal = ({ isOpen, onConfirm }) => {
         <h2>Inactivité Détectée</h2>
         <p>Vous êtes inactif depuis un moment. Voulez-vous rester connecté ?</p>
         <button onClick={onConfirm}>Oui</button>
+        <button onClick={onCancel}>Non</button>
       </div>
     </div>
   );
