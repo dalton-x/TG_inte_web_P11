@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import "./styles.css"
 import { useEffect, useState } from "react"
-import { getUser } from '@/redux/actions/user.actions.jsx'
+import { getUser, reconnectUser } from '@/redux/actions/user.actions.jsx'
+import { reconnectAuth } from '@/redux/actions/auth.actions.jsx'
 import { useDispatch, useSelector } from "react-redux"
 import transactions from './data.json'
 import Transaction from "../../components/Transaction/transaction.jsx"
@@ -18,6 +19,7 @@ function User() {
 
   // Gestion affichage du formulaire de mise à jour du userName
   const isConnected = useSelector((state) => state.auth.isConnected)
+  const state = useSelector((state) => state)
   
   // controle du token
   const token =  localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -28,17 +30,22 @@ function User() {
   }
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.post(import.meta.env.VITE_API_URL + '/api/v1/user/profile', {}, config)
-        setUserData(response.data.body)
-        dispatch(getUser(response.data.body))
-      } catch (error) {
-        console.error('Error fetching user data:', error)
+    if (sessionStorage.getItem('state') !== undefined) {
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.post(import.meta.env.VITE_API_URL + '/api/v1/user/profile', {}, config)
+          setUserData(response.data.body)
+          dispatch(getUser(response.data.body))
+        } catch (error) {
+          console.error('Error fetching user data:', error)
+        }
       }
+  
+      fetchUserData()
+    } else {
+      dispatch(reconnectAuth(state.auth))
+      dispatch(reconnectUser(state.user))
     }
-
-    fetchUserData()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
@@ -47,13 +54,16 @@ function User() {
     setDisplay(!display)
   };
 
-  // Test si l utilisateur est toujours connecté
+  if (localStorage.getItem('token')){
+    sessionStorage.setItem('state', JSON.stringify(state))
+  }
+
+  // Test si l'utilisateur est toujours connecté
   if (!isConnected) {
     navigate('/sign-in')
   }
   
   // Permet l attente des données avant affichage de la page
-  // TODO : FAIRE UN BOUT DE CSS
   if (!userData) {
     return <div>Loading...</div>
   }

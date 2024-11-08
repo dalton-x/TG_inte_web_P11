@@ -1,4 +1,4 @@
-import { GET_USER, UPDATE_USERNAME, DESTROY_USER } from "@/redux/actions/type.actions";
+import { GET_USER, UPDATE_USERNAME, DESTROY_USER, RECONNECT_USER } from "@/redux/actions/type.actions";
 
 /* État initial de l'authentification */
 const initialState = {
@@ -26,6 +26,19 @@ export const userReducer = (state = initialState, action) => {
           userName: action.payload
         }
       }
+    case RECONNECT_USER:
+        return {
+          ...state,
+          status: "RECONNECT_USER",
+          data : {
+            status : action.payload.data.status,
+            email: action.payload.data.email,
+            firstName: action.payload.data.firstName,
+            lastName: action.payload.data.lastName,
+            userName: action.payload.data.userName,
+            id: action.payload.data.id,
+          }
+        }
 
     case DESTROY_USER:
       return initialState

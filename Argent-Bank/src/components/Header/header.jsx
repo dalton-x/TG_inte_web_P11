@@ -1,24 +1,24 @@
 import { Link } from "react-router-dom"
 import "./styles.css"
-import logo from './../../assets/argentBankLogo.png';
-import { Fragment } from "react";
+import logo from './../../assets/argentBankLogo.png'
+import { Fragment } from "react"
 
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '@/redux/actions/auth.actions';
-import { destroyUser } from '@/redux/actions/user.actions';
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '@/redux/actions/auth.actions'
+import { destroyUser } from '@/redux/actions/user.actions'
 
 function Header() {
 
   const dispatch = useDispatch();
 
   const username = useSelector((state) => state.user.data.userName)
-  const isConnected = useSelector((state) => state.auth.isConnected);
+  const isConnected = useSelector((state) => state.auth.isConnected)
 
   const signOutHandler = () => {
-    dispatch(logout());
-    dispatch(destroyUser());
-    sessionStorage.clear();
-    localStorage.clear();
+    dispatch(logout())
+    dispatch(destroyUser())
+    sessionStorage.clear()
+    localStorage.clear()
   }
 
   return (

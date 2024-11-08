@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGOUT } from "@/redux/actions/type.actions";
+import { LOGIN_SUCCESS, LOGOUT, RECONNECT_AUTH } from "@/redux/actions/type.actions";
 
 /* État initial de l'authentification */
 const initialState = {
@@ -19,10 +19,18 @@ export const authReducer = (state = initialState, action) => {
                 token: action.payload,
                 error: null
             }
+        case RECONNECT_AUTH:
+            return {
+                ...state,
+                status: action.payload.status,
+                isConnected: action.payload.isConnected,
+                token: action.payload.token,
+                error: action.payload.error
+            }
         case LOGOUT:
             return initialState // remise a l'etat initial du state
 
-        default:
-            return state;
+        default:            
+            return state
     }
 }
