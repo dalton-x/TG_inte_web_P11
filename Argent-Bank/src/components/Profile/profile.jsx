@@ -33,6 +33,8 @@ const Profile = ({setDisplay}) => {
       if (response.status == 200) {
         setDisplay(false)
         dispatch(updateUsername(newUserName))
+        // Mise à jour de localSotorage pour la reconnection de l'utilisateur
+        sessionStorage.setItem('state',JSON.parse(sessionStorage.getItem('state')).user.data.userName = newUserName)
       } else {
         setError(response.data.message);
       }

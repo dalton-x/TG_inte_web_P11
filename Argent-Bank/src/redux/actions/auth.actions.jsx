@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from "@/redux/actions/type.actions";
+import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, RECONNECT_AUTH } from "@/redux/actions/type.actions";
 
 /* Actions d'authentification */
 
@@ -14,6 +14,13 @@ export const loginFailed = (error) => {
     return {
         type: LOGIN_FAILED,
         payload: error, //Retour du message d'erreur
+    }
+}
+// Action pour la reconnection
+export const reconnectAuth = (auth) => {
+    return {
+        type: RECONNECT_AUTH,
+        payload: auth,
     }
 }
 // Action pour la déconnecxion
