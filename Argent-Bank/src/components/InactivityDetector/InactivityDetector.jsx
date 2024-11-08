@@ -9,10 +9,9 @@ const InactivityDetector = () => {
   const dispatch = useDispatch();
   
   const [timeoutId, setTimeoutId] = useState(null);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleActivity = () => {
-
     if (timeoutId) {
       clearTimeout(timeoutId)
     }
@@ -23,19 +22,18 @@ const InactivityDetector = () => {
   };
 
   const handleInactivity = () => {
-    setModalOpen(true)
-    setTimeout(() => {
-      handleClose()
-    }, import.meta.env.VITE_DURATION_INACTIVITY)
+    setIsModalOpen(true)
   };
 
   const handleConfirm = () => {
-    setModalOpen(false)
+    setIsModalOpen(false)
     handleActivity()
   };
 
   const handleClose = () => {
-    setModalOpen(false)
+    setIsModalOpen(false)
+    sessionStorage.clear()
+    localStorage.clear()
     dispatch(logout())
     dispatch(destroyUser())
   };
@@ -53,7 +51,7 @@ const InactivityDetector = () => {
   }, [timeoutId])
 
   return (
-    <Modal isOpen={isModalOpen} onConfirm={handleConfirm} />
+    <Modal isOpen={isModalOpen} onConfirm={handleConfirm} onCancel={handleClose} />
   );
 };
 
