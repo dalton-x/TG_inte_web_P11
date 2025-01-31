@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import "./styles.css"
-import logo from './../../assets/argentBankLogo.png'
+import logo from './../../assets/argentBankLogo.webp'
 import { Fragment } from "react"
 
 import { useSelector, useDispatch } from 'react-redux'
